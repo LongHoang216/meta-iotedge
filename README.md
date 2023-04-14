@@ -1,40 +1,73 @@
 meta-iotedge
 ===========
 
-This layer provides support for building [IoT Edge](https://github.com/azure/iotedge) with [Yocto](https://www.yoctoproject.org/).
+This layer provides support for building [IoT Edge][iotedge] with [Yocto][yocto].
 
 Please see the corresponding sections below for details.
+
+[iotedge]: https://github.com/azure/iotedge
+[yocto]: https://www.yoctoproject.org/
+
+Dependencies
+------------
+This layer depends on:
+
+```
+URI: git://github.com/meta-rust/meta-rust.git
+branch: master
+revision: 5656b5ad104bbbbe1b711e3bbe35c88f0d9c9a05
+prio: default
+```
+
+```
+URI: git://git.yoctoproject.org/meta-virtualization
+branch: dunfell
+revision: HEAD
+prio: default
+```
+
+```
+URI: git://github.com/openembedded/openembedded-core.git
+branch: dunfell
+revision: HEAD
+prio: default
+```
+
+```
+URI: git://git.yoctoproject.org/meta-security
+branch: dunfell
+revision: HEAD
+prio: default
+```
+
+```
+URI: https://github.com/kraj/meta-clang.git
+branch: dunfell
+revision: HEAD
+prio: default
+```
 
 Adding the meta-iotedge layer to your build
 =================================================
 
-Use the branch of `meta-iotedge` corresponding to your Yocto release:
+Run `bitbake-layers add-layer meta-iotedge`.
 
-**Active and maintained**:
-* [Kirkstone](https://github.com/Azure/meta-iotedge/tree/main) - `git clone -b main https://github.com/Azure/meta-iotedge.git`
-* [Dunfell](https://github.com/Azure/meta-iotedge/tree/dunfell) - `git clone -b dunfell https://github.com/Azure/meta-iotedge.git`
+The relevant recipes are:
 
-Run `bitbake-layers add-layer meta-iotedge`
+* `aziot-edged` – contains all required dependencies for IoT Edge and IoT Identity Service
+* `aziotctl` – optional CLI tool for IoT Identity Service
 
-**Not active and Not maintained**
-* [Sumo](https://github.com/Azure/meta-iotedge/tree/sumo) - `git clone -b sumo https://github.com/Azure/meta-iotedge.git`
-* [Thud](https://github.com/Azure/meta-iotedge/tree/thud) - `git clone -b thud https://github.com/Azure/meta-iotedge.git`
-* [Warrior](https://github.com/Azure/meta-iotedge/tree/warrior) - `git clone -b warrior https://github.com/Azure/meta-iotedge.git`
-* [Zeus](https://github.com/Azure/meta-iotedge/tree/zeus) - `git clone -b zeus https://github.com/Azure/meta-iotedge.git`
-
-Branching Strategy and Timelines
+Migration from IoT Edge 1.1 LTS
 ===============================
 
-| Yocto Release | IoT Edge version | Branch Name | Branch Status |
-| :- | :- | :- | :- |
-| Kirkstone | 1.4.x | main | Active and maintained |
-| Dunfell | 1.4.x  | dunfell | Active and maintained through April 2024 |
-| Dunfell | 1.1.x  | dunfell-1.1 | 1.1.x is retired in Dec'22. Not maintained |
-| Sumo | 1.1.x | sumo | Not active and Not maintained |
-| Thud | 1.1.x | thud | Not active and Not maintained |
-| Warrior | 1.1.x | warrior | Not active and Not maintained |
-| Zeus | 1.1.x | zeus | Not active and Not maintained |
+IoT Edge 1.2 introduced many changes affecting the services which are running,
+configuration file locations, and also configuration file format. The changes
+are listed in the [IoT Edge Packaging][packaging] document. Additionally, [How
+to Update IoT Edge][updating-guide] describes how to migrate existing
+installation and configuration.
 
+[packaging]: https://github.com/Azure/iotedge/blob/main/doc/packaging.md
+[updating-guide]: https://learn.microsoft.com/azure/iot-edge/how-to-update-iot-edge?view=iotedge-1.4&tabs=ubuntu#special-case-update-from-10-or-11-to-latest-release
 
 Contributing
 ============
