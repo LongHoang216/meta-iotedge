@@ -18,6 +18,6 @@ BBLAYERS ?= " \
   ${TOPDIR}/../meta-virtualization \
   ${TOPDIR}/../meta-security/meta-tpm \
   ${TOPDIR}/../meta-clang \
-  ${TOPDIR}/../meta-iotedge.git \
+  ${TOPDIR}/../meta-iotedge \
   ${TOPDIR}/../meta-docker/meta-rcar-gen3 \
   "
